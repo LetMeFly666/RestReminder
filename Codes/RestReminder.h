@@ -2,6 +2,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_RestReminder.h"
+#include "Config.h"
+
 
 class RestReminder : public QMainWindow {
     Q_OBJECT
@@ -12,4 +14,5 @@ public:
 
 private:
     Ui::RestReminderClass ui;
+    Config config;
 };
