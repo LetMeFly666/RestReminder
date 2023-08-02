@@ -3,8 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_RestReminder.h"
 
-class RestReminder : public QMainWindow
-{
+class RestReminder : public QMainWindow {
     Q_OBJECT
 
 public:
