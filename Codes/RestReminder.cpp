@@ -1,7 +1,10 @@
 #include "RestReminder.h"
+#include <QtWidgets/QApplication>
 
-RestReminder::RestReminder(QWidget *parent) : QMainWindow(parent) {
+
+RestReminder::RestReminder(QApplication* a, QWidget *parent) : QMainWindow(parent) {
     ui.setupUi(this);
+    controller.setQApplication(a);
 }
 
 RestReminder::~RestReminder() {}

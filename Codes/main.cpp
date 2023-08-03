@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
-    RestReminder w;
+    RestReminder w(&a);
     w.show();
     return a.exec();
 }

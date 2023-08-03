@@ -1,18 +1,19 @@
 #pragma once
 
-#include <QtWidgets/QMainWindow>
 #include "ui_RestReminder.h"
-#include "Config.h"
+#include "Controller.h"
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
 
 
 class RestReminder : public QMainWindow {
     Q_OBJECT
 
 public:
-    RestReminder(QWidget *parent = nullptr);
+    RestReminder(QApplication* a, QWidget *parent = nullptr);
     ~RestReminder();
 
 private:
     Ui::RestReminderClass ui;
-    Config config;
+    Controller controller;
 };
