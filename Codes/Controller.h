@@ -42,6 +42,10 @@ private:
 
 	void startWork() {
 		setStatus(worktime);
+		menu->removeAction(restAction);
+		menu->removeAction(exitAction);
+		menu->addAction(workAction);
+		menu->addAction(exitAction);
 	}
 
 	void stopWork() {
@@ -50,6 +54,10 @@ private:
 
 	void startRest() {
 		setStatus(resttime);
+		menu->removeAction(workAction);
+		menu->removeAction(exitAction);
+		menu->addAction(restAction);
+		menu->addAction(exitAction);
 	}
 
 	void stopRest() {
