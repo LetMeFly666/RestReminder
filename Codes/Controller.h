@@ -73,17 +73,21 @@ private:
             qDebug() << "Please rest";
             status = work_timeout;
             secCnt = 0;
+            trayIcon->showMessage("Information", "Please rest", QSystemTrayIcon::Information, 5000);
         }
         else if (status == work_timeout && secCnt == config.work_timeout) {  // 工作时间超出work_timeout还未休息
             qDebug() << "You must rest!";
+            QMessageBox::information(nullptr, "Warn", "You must rest! MUST!");
         }
         else if (status == resttime && secCnt == config.resttime) {  // 休息时间达标，工作提醒
             qDebug() << "Comeback to work";
             status = rest_timeout;
             secCnt = 0;
+            trayIcon->showMessage("Information", "Please work", QSystemTrayIcon::Information, 5000);
         }
         else if (status == rest_timeout && secCnt == config.rest_timeout) {  // 休息时间超出rest_timeout还未工作
             qDebug() << "You must work!";
+            QMessageBox::information(nullptr, "Warn", "You must work! MUST!");
         }
 
         // Icon
@@ -150,4 +154,3 @@ public:
         this->a = a;
     }
 };
-// QMessageBox::information(nullptr, "Information", "menu is clicked!");
