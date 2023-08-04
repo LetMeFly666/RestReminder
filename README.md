@@ -14,3 +14,8 @@ RestReminder(Pomodoro)：remind you to rest when you use computer too long. 休�
 休息时同理，对应提醒时间分别为```resttime```和```rest_timeout```。
 
 修改配置文件（[conf.json](Settings/conf.json)）可以调整上述时长，可以右键托盘区图标修改```工作/休息```状态。
+
+## TODO:
+
++ 暂停功能
++ 图标的进度显示

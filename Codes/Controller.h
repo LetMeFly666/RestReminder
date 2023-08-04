@@ -10,7 +10,7 @@
 
 enum Status {
     worktime = 1,
-    worktime_timeout = 2,
+    work_timeout = 2,
     resttime = 3,
     rest_timeout = 4
 };
@@ -50,7 +50,7 @@ private:
     }
 
     void stopWork() {
-        setStatus(worktime_timeout);
+        setStatus(work_timeout);
     }
 
     void startRest() {
@@ -66,11 +66,45 @@ private:
         setStatus(rest_timeout);
     }
 
-    void refreshIcon() {
+    void refreshIconAndStatus() {
+        // Status
+        secCnt++;
+        if (status == worktime && secCnt == config.worktime) {  // 工作时间达标，休息提醒
+            qDebug() << "Please rest";
+            status = work_timeout;
+            secCnt = 0;
+        }
+        else if (status == work_timeout && secCnt == config.work_timeout) {  // 工作时间超出work_timeout还未休息
+            qDebug() << "You must rest!";
+        }
+        else if (status == resttime && secCnt == config.resttime) {  // 休息时间达标，工作提醒
+            qDebug() << "Comeback to work";
+            status = rest_timeout;
+            secCnt = 0;
+        }
+        else if (status == rest_timeout && secCnt == config.rest_timeout) {  // 休息时间超出rest_timeout还未工作
+            qDebug() << "You must work!";
+        }
+
+        // Icon
         QPixmap pixmap = trayIcon->icon().pixmap(16, 16);
         QPainter painter(&pixmap);
-        QColor color(qrand() % 255, qrand() % 255, qrand() % 255);
-        painter.fillRect(0, 0, 16, 16, color);
+        
+        if (status == worktime) {
+
+        }
+        else if (status == work_timeout) {
+            QColor color(255, 0, 0);
+            painter.fillRect(0, 0, 16, 16, color);
+        }
+        else if (status == resttime) {
+
+        }
+        else {  // rest_timeout
+            QColor color(0, 255, 0);
+            painter.fillRect(0, 0, 16, 16, color);
+        }
+
         trayIcon->setIcon(pixmap);
     }
 
@@ -83,7 +117,7 @@ public:
         // 定时器
         QTimer* timer = new QTimer();
         QObject::connect(timer, &QTimer::timeout, [&]() {
-            refreshIcon();
+            refreshIconAndStatus();
         });
         timer->start(1000);
 
