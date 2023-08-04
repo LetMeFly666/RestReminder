@@ -26,9 +26,6 @@
     <QtRcc Include="RestReminder.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="RestReminder.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtMoc Include="RestReminder.h">
       <Filter>Header Files</Filter>
     </QtMoc>

@@ -118,13 +118,6 @@ public:
         trayIcon->setIcon(QPixmap(16, 16));
         trayIcon->show();
 
-        // ¶¨Ê±Æ÷
-        QTimer* timer = new QTimer();
-        QObject::connect(timer, &QTimer::timeout, [&]() {
-            refreshIconAndStatus();
-        });
-        timer->start(1000);
-
         // ÓÒ¼ü²Ëµ¥
         menu = new QMenu();
         trayIcon->setContextMenu(menu);
@@ -152,5 +145,13 @@ public:
 
     void setQApplication(QApplication* a) {
         this->a = a;
+    }
+
+    void startTimer() {
+        QTimer* timer = new QTimer();
+        QObject::connect(timer, &QTimer::timeout, [&]() {
+            refreshIconAndStatus();
+        });
+        timer->start(1000);
     }
 };

@@ -2,8 +2,6 @@
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    RestReminder w(&a);
-    w.show();
+    RestReminder a(argc, argv);
     return a.exec();
 }

@@ -84,7 +84,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="RestReminder.qrc" />
-    <QtUic Include="RestReminder.ui" />
     <QtMoc Include="RestReminder.h" />
     <ClCompile Include="RestReminder.cpp" />
     <ClCompile Include="main.cpp" />
