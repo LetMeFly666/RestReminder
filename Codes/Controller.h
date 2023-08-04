@@ -43,9 +43,9 @@ private:
     void startWork() {
         qDebug() << "Start to work";
         setStatus(worktime);
-        menu->removeAction(restAction);
+        menu->removeAction(workAction);
         menu->removeAction(exitAction);
-        menu->addAction(workAction);
+        menu->addAction(restAction);
         menu->addAction(exitAction);
     }
 
@@ -56,9 +56,9 @@ private:
     void startRest() {
         qDebug() << "Start to rest";
         setStatus(resttime);
-        menu->removeAction(workAction);
+        menu->removeAction(restAction);
         menu->removeAction(exitAction);
-        menu->addAction(restAction);
+        menu->addAction(workAction);
         menu->addAction(exitAction);
     }
 
