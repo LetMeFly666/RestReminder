@@ -41,6 +41,7 @@ private:
     }
 
     void startWork() {
+        qDebug() << "Start to work";
         setStatus(worktime);
         menu->removeAction(restAction);
         menu->removeAction(exitAction);
@@ -53,6 +54,7 @@ private:
     }
 
     void startRest() {
+        qDebug() << "Start to rest";
         setStatus(resttime);
         menu->removeAction(workAction);
         menu->removeAction(exitAction);
@@ -87,22 +89,25 @@ public:
 
         // ÓÒ¼ü²Ëµ¥
         menu = new QMenu();
+        trayIcon->setContextMenu(menu);
+
         restAction = new QAction("Rest", menu);
         menu->addAction(restAction);
-        trayIcon->setContextMenu(menu);
         QObject::connect(restAction, &QAction::triggered, [&]() {
+            qDebug() << "Rest menu clicked!";
             startRest();
         });
 
         workAction = new QAction("Work", menu);
         QObject::connect(workAction, &QAction::triggered, [&]() {
+            qDebug() << "Work menu clicked!";
             startWork();
         });
 
         exitAction = new QAction("Exit", menu);
         menu->addAction(exitAction);
-        trayIcon->setContextMenu(menu);
-        QObject::connect(exitAction, &QAction::trigger, [&]() {
+        QObject::connect(exitAction, &QAction::triggered, [&]() {
+            qDebug() << "Exit menu clicked!";
             a->exit();
         });
     }
