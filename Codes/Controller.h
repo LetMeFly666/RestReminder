@@ -22,9 +22,10 @@ private:
 	int secCnt = 0;
 	Config config;
 	QSystemTrayIcon* trayIcon;
-	QMenu* restMenu;
-	QMenu* workMenu;
-	QMenu* exitMenu;
+	QMenu* menu;
+	QAction* workAction;
+	QAction* restAction;
+	QAction* exitAction;
 
 	int getStatus() {
 		return status;
@@ -77,25 +78,22 @@ public:
 		timer->start(1000);
 
 		// ÓÒ¼ü²Ëµ¥
-		restMenu = new QMenu();
-		QAction* restAction = new QAction("Rest", restMenu);
-		restMenu->addAction(restAction);
-		trayIcon->setContextMenu(restMenu);
+		menu = new QMenu();
+		restAction = new QAction("Rest", menu);
+		menu->addAction(restAction);
+		trayIcon->setContextMenu(menu);
 		QObject::connect(restAction, &QAction::triggered, [&]() {
 			startRest();
 	    });
 
-		workMenu = new QMenu();
-		QAction* workAction = new QAction("Work", workMenu);
-		workMenu->addAction(workAction);
+		workAction = new QAction("Work", menu);
 		QObject::connect(workAction, &QAction::triggered, [&]() {
 			startWork();
 		});
 
-		exitMenu = new QMenu();
-		QAction* exitAction = new QAction("Exit", exitMenu);
-		exitMenu->addAction(exitAction);
-		trayIcon->setContextMenu(exitMenu);
+		exitAction = new QAction("Exit", menu);
+		menu->addAction(exitAction);
+		trayIcon->setContextMenu(menu);
 		QObject::connect(exitAction, &QAction::trigger, [&]() {
 			a->exit();
 		});
