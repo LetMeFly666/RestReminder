@@ -19,3 +19,4 @@ RestReminder(Pomodoro)：remind you to rest when you use computer too long. 休�
 
 + 暂停功能
 + 图标的进度显示
++ QMessageBox弹出时QTimer停止计时了
