@@ -3,20 +3,22 @@
 #include <QFile>
 #include <QtCore/QJsonObject>
 #include <QtCore/QJsonDocument>
+#include <QMessageBox>
 
 class Config {
 public:
     bool isOk;
-    int worktime{};
-    int work_timeout{};
-    int resttime{};
-    int rest_timeout{};
+    int worktime = 1800;
+    int work_timeout = 1800;
+    int resttime = 300;
+    int rest_timeout = 600;
 
     Config() : isOk(false) {
         // Read config from file
         QFile configFile("../Settings/conf.json");
         if (!configFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
             qDebug() << "Failed to open file.";
+            QMessageBox::warning(nullptr, "Warn", "Failed to open config file.<br>See restreminder.tisfy.eu.org for more");
             return;
         }
         QByteArray data = configFile.readAll();
@@ -27,6 +29,7 @@ public:
         QJsonDocument jsonDocument = QJsonDocument::fromJson(data, &error);
         if (jsonDocument.isNull()) {
             qDebug() << "Failed to parse JSON data: " << error.errorString();
+            QMessageBox::warning(nullptr, "Warn", "Failed to parse JSON data:<br>" + error.errorString() + "<br>See restreminder.tisfy.eu.org for more");
             return;
         }
         QJsonObject config = jsonDocument.object();
