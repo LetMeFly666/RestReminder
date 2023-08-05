@@ -130,6 +130,7 @@ public:
         trayIcon = new QSystemTrayIcon();
         trayIcon->setIcon(QPixmap(16, 16));
         trayIcon->show();
+        trayIcon->showMessage("Information", "It's running at the system tray area", QSystemTrayIcon::Information, 5000);
 
         workMsgbox = new QMessageBox(QMessageBox::Warning, "Warn", "You must work! MUST!", QMessageBox::Ok);
         restMsgbox = new QMessageBox(QMessageBox::Warning, "Warn", "You must rest! MUST!", QMessageBox::Ok);
