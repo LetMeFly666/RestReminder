@@ -26,6 +26,8 @@ private:
     QAction* workAction;
     QAction* restAction;
     QAction* exitAction;
+    QMessageBox* workMsgbox;
+    QMessageBox* restMsgbox;
 
     int getStatus() {
         return status;
@@ -47,6 +49,7 @@ private:
         menu->removeAction(exitAction);
         menu->addAction(restAction);
         menu->addAction(exitAction);
+        workMsgbox->hide();
     }
 
     void stopWork() {
@@ -60,10 +63,20 @@ private:
         menu->removeAction(exitAction);
         menu->addAction(workAction);
         menu->addAction(exitAction);
+        restMsgbox->hide();
     }
 
     void stopRest() {
         setStatus(rest_timeout);
+    }
+
+    void alert(QMessageBox* msgbox) {
+        msgbox->setWindowFlags(workMsgbox->windowFlags() | Qt::WindowStaysOnTopHint);
+        msgbox->show();
+        QTimer::singleShot(500, [msgbox]() {  // 弹出时置顶是为了即使电脑处于全屏状态，也要能够被看到。弹出后0.5秒就可以取消置顶了
+            msgbox->setWindowFlags(msgbox->windowFlags() & ~Qt::WindowStaysOnTopHint);
+            msgbox->show();  // 还需再show一次
+        });
     }
 
     void refreshIconAndStatus() {
@@ -77,7 +90,7 @@ private:
         }
         else if (status == work_timeout && secCnt == config.work_timeout) {  // 工作时间超出work_timeout还未休息
             qDebug() << "You must rest!";
-            QMessageBox::information(nullptr, "Warn", "You must rest! MUST!");
+            alert(restMsgbox);
         }
         else if (status == resttime && secCnt == config.resttime) {  // 休息时间达标，工作提醒
             qDebug() << "Comeback to work";
@@ -87,7 +100,7 @@ private:
         }
         else if (status == rest_timeout && secCnt == config.rest_timeout) {  // 休息时间超出rest_timeout还未工作
             qDebug() << "You must work!";
-            QMessageBox::information(nullptr, "Warn", "You must work! MUST!");
+            alert(workMsgbox);
         }
 
         // Icon
@@ -117,6 +130,9 @@ public:
         trayIcon = new QSystemTrayIcon();
         trayIcon->setIcon(QPixmap(16, 16));
         trayIcon->show();
+
+        workMsgbox = new QMessageBox(QMessageBox::Warning, "Warn", "You must work! MUST!", QMessageBox::Ok);
+        restMsgbox = new QMessageBox(QMessageBox::Warning, "Warn", "You must rest! MUST!", QMessageBox::Ok);
 
         // 右键菜单
         menu = new QMenu();
