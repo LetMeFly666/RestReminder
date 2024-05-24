@@ -3,7 +3,7 @@
 RestReminder(Pomodoro)：remind you to rest when you use computer too long. 休息提醒（番茄时钟）：使用电脑过久时提醒你休息
 
 + 项目地址：[Github@LetMeFly666/RestReminder](https://github.com/LetMeFly666/RestReminder)
-+ 在线文档：[RestReminder.tisfy.eu.org](https://restreminder.tisfy.eu.org/)
++ 在线文档：[RestReminder.letmefly.xyz](https://restreminder.letmefly.xyz/)
 + 应用下载：[#发行版](#发行版)
 
 ## 使用介绍
